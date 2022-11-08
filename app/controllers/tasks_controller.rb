@@ -10,4 +10,8 @@ class TasksController < ApplicationController
 
   def edit
   end
+
+  def new
+    @task = Task.new
+  end
 end
