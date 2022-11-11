@@ -8,6 +8,7 @@ class TasksController < ApplicationController
   end
 
   def new
+    @task = Task.new
   end
 
   def edit
@@ -26,14 +27,13 @@ class TasksController < ApplicationController
     redirect_to tasks_url, notice: "タスク「#{task.name}」を削除しました。」"
   end
 
-  def new
-    @task = Task.new
-  end
-
   def create
-    task = Task.new(task_params)
-    task.save!
-    redirect_to tasks_url, notice: "タスク「#{task.name}」を登録しました。"
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to @tasks, notice: "タスク「#{@task.name}」を登録しました。"
+    else
+      render :new
+    end
   end
 
   private
